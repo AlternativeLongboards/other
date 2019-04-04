@@ -22,6 +22,9 @@ import datetime
 import threading
 import socket
 import json
+from datetime import datetime
+
+f = open("press.log", 'a')
 
 MasterModule = serial.Serial('/dev/ttyACM0', 115200)
 time.sleep(2)
@@ -53,7 +56,7 @@ is_opening = [0,0,0,0,0,0]
 opening_stage = [0,0,0,0,0,0]
 some_shit = 0
 
-set_pressing_time = 7200
+set_pressing_time = 7200			# pressing time in [s]
 
 Builder.load_string("""
 
@@ -483,7 +486,7 @@ Builder.load_string("""
                             size_hint: .05, 1
                         Button:
                             size_hint: .475,1
-                            text: 'PRODUCTION'
+                            text: 'SWITCHGEAR'
                             font_size: self.parent.width/40
                             on_press: root.show_prod()
                         BoxLayout:
@@ -782,7 +785,7 @@ class MainWindow(Screen):
 
         m = [0,0,0,0,0,0,0]
         labels = [mold_label_1,mold_label_2,mold_label_3,mold_label_4,mold_label_5,mold_label_6]
-        search_result = molds.find()
+        search_result = []
         for each in search_result:
             try:
                 m[0] = each['mold01']
@@ -861,6 +864,13 @@ class MainWindow(Screen):
         self.serial_write('AE')
         time.sleep(0.1)
         readData = self.serial_read().decode()
+        if "S0A0Z0B0Y0C0X0D0W0E0V0F0U0L" in readData:
+            to_print = "good"
+        else:
+            to_print = readData
+        str_to_log = str(datetime.now().strftime("%H:%M:%S"))+" "+str(to_print)+"\n"
+        f.write(str_to_log)
+        f.flush()
         if (readData != ""):
 
             variable = int(readData.index("S"))
@@ -1439,6 +1449,7 @@ class MainWindow(Screen):
         self.serial_write('ST')
         time.sleep(0.1)
         data = self.serial_read().decode()
+        print("sys info is: ", data)
 
         if (data != ""):
             variable = int(data.index("I"))
@@ -1462,7 +1473,26 @@ class MainWindow(Screen):
 
     def show_prod(self,*args):
 
-        Production().open()
+#        Production().open()
+        global total_left
+        
+        if (sum(total_left) == 43200):
+            self.serial_write('Z02')
+            time.sleep(0.5)
+            self.serial_write('B00')
+            time.sleep(0.5)
+            self.serial_write('C00')
+            time.sleep(1)
+            repeat_t = 5
+            wait_time = 0.5
+            for i in range(1,7):
+                for each in range(0,repeat_t):
+                    message = "C0"+str(i)
+                    self.serial_write(message)
+                    time.sleep(wait_time)
+                    self.serial_write('C00')
+                    time.sleep(wait_time)
+            self.serial_write('Z01')
 
 class ScanApp(App):
 

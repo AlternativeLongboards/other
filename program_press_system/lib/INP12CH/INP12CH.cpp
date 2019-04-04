@@ -189,8 +189,10 @@ boolean INP12CH::check_module() {
       break;
     }
   }
-  while (Serial1.available() > 0) {
-    IncomingByte(Serial1.read());
+  if (Serial1.available() > 2) {
+    while (Serial1.available() > 0) {
+      IncomingByte(Serial1.read());
+    }
   }
   if (readHandshake == 1 && readAdress == _adress) {
     return true;
