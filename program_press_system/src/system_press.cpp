@@ -296,31 +296,43 @@ int commands_handling() {                                                       
     }
 
     if (message == "A01") {                                                                                                             // open press 01
+      Serial.print("A"); Serial.print("0"); Serial.print("1");
+      Serial.flush();
       magic_variable = 1;
       hydraulic_down = 1;
       goto command_end;
     }
     if (message == "A02") {                                                                                                             // open press 02
+      Serial.print("A"); Serial.print("0"); Serial.print("2");
+      Serial.flush();
       magic_variable = 2;
       hydraulic_down = 1;
       goto command_end;
     }
     if (message == "A03") {                                                                                                             // open press 03
+      Serial.print("A"); Serial.print("0"); Serial.print("3");
+      Serial.flush();
       magic_variable = 4;
       hydraulic_down = 1;
       goto command_end;
     }
     if (message == "A04") {                                                                                                             // open press 04
+      Serial.print("A"); Serial.print("0"); Serial.print("4");
+      Serial.flush();
       magic_variable = 8;
       hydraulic_down = 1;
       goto command_end;
     }
     if (message == "A05") {                                                                                                             // open press 05
+      Serial.print("A"); Serial.print("0"); Serial.print("5");
+      Serial.flush();
       magic_variable = 16;
       hydraulic_down = 1;
       goto command_end;
     }
     if (message == "A06") {                                                                                                             // open press 06
+      Serial.print("A"); Serial.print("0"); Serial.print("6");
+      Serial.flush();
       magic_variable = 32;
       hydraulic_down = 1;
       goto command_end;
@@ -330,77 +342,111 @@ int commands_handling() {                                                       
       goto command_end;
     }
     if (message == "Z01") {                                                                                                             // send system status
+      Serial.print("Z"); Serial.print("0"); Serial.print("1");
+      Serial.flush();
       system_mode = 0;
       goto command_end;
     }
     if (message == "Z02") {                                                                                                             // send system status
+      Serial.print("A"); Serial.print("0"); Serial.print("2");
+      Serial.flush();
       system_mode = 1;
       goto command_end;
     }
     if (message == "C00") {
+      Serial.print("C"); Serial.print("0"); Serial.print("0");
+      Serial.flush();
       switchgear_state_to_set = NONE;
       goto command_end;
     }
     if (message == "C01") {
+      Serial.print("C"); Serial.print("0"); Serial.print("1");
+      Serial.flush();
       switchgear_state_to_set = PRESS_1;
       goto command_end;
     }
     if (message == "C02") {
+      Serial.print("C"); Serial.print("0"); Serial.print("2");
+      Serial.flush();
       switchgear_state_to_set = PRESS_2;
       goto command_end;
     }
     if (message == "C03") {
+      Serial.print("C"); Serial.print("0"); Serial.print("3");
+      Serial.flush();
       switchgear_state_to_set = PRESS_3;
       goto command_end;
     }
     if (message == "C04") {
+      Serial.print("C"); Serial.print("0"); Serial.print("4");
+      Serial.flush();
       switchgear_state_to_set = PRESS_4;
       goto command_end;
     }
     if (message == "C05") {
+      Serial.print("C"); Serial.print("0"); Serial.print("5");
+      Serial.flush();
       switchgear_state_to_set = PRESS_5;
       goto command_end;
     }
      if (message == "C06") {
+      Serial.print("C"); Serial.print("0"); Serial.print("6");
+      Serial.flush();
       switchgear_state_to_set = PRESS_6;
       goto command_end;
     }
     if (message == "B00") {
+      Serial.print("B"); Serial.print("0"); Serial.print("0");
+      Serial.flush();
       pump_state_to_set = ZERO;
       goto command_end;
     }
     if (message == "B01") {
+      Serial.print("B"); Serial.print("0"); Serial.print("1");
+      Serial.flush();
       pump_state_to_set = UP;
       goto command_end;
     }
     if (message == "B02") {
+      Serial.print("B"); Serial.print("0"); Serial.print("2");
+      Serial.flush();
       pump_state_to_set = DOWN;
       goto command_end;
     }
     if (message == "R02") {
      if (system_mode == 1) {
       relay_value_to_set[3] = 14;
+      Serial.print("R"); Serial.print("0"); Serial.print("2");
+      Serial.flush();
      }
      goto command_end;
     }
    if (message == "R03") {
     if (system_mode == 1) {
      relay_value_to_set[4] = 14;
+     Serial.print("R"); Serial.print("0"); Serial.print("3");
+     Serial.flush();
     }
    }
    if (message == "R04") {
     if (system_mode == 1) {
      relay_value_to_set[5] = 14;
+     Serial.print("R"); Serial.print("0"); Serial.print("4");
+     Serial.flush();
     }
    }
    if (message == "R05") {
     if (system_mode == 1) {
      relay_value_to_set[6] = 14;
+     Serial.print("R"); Serial.print("0"); Serial.print("5");
+     Serial.flush();
     }
    }
    if (message == "R06") {
     if (system_mode == 1) {
      relay_value_to_set[7] = 14;
+     Serial.print("R"); Serial.print("0"); Serial.print("6");
+     Serial.flush();
     }
    }
   }
