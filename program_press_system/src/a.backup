@@ -1,0 +1,39 @@
+#include <REL6CH.h>
+#include <INP12CH.h>
+
+
+REL6CH relay[8] = { REL6CH(0), REL6CH(20), REL6CH(11),
+                    REL6CH(12), REL6CH(13), REL6CH(14),
+                    REL6CH(15), REL6CH(16) };
+
+INP12CH input[6] = { INP12CH(1), INP12CH(2), INP12CH(3),
+                     INP12CH(4), INP12CH(5), INP12CH{6} };
+
+REL6CH xxx = REL6CH(11);
+
+void setup() {
+  Serial.begin(115200);
+}
+
+void loop() {
+  Serial.println("starting");
+  for (int module_number = 0; module_number < 6; module_number++) {
+    boolean input_status = input[module_number].check_module();
+    boolean relay_status = relay[module_number].check_module();
+    Serial.print("number ");
+    Serial.print(module_number + 1);
+    Serial.print(" input status ");
+    Serial.println(input_status);
+//    Serial.print(" relay status ");
+//    Serial.println(relay_status);
+    delay(50);
+  }
+//  Serial.print(" relay 15 status ");
+//  Serial.print(relay[6].check_module());
+//  Serial.print(" relay 16 status ");
+//  Serial.println(relay[7].check_module());
+//  Serial.print("xxx is ");
+//  Serial.println(xxx.check_module());
+  Serial.println("--------------------");
+  delay(950);
+}

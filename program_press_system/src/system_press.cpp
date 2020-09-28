@@ -348,7 +348,7 @@ int commands_handling() {                                                       
       goto command_end;
     }
     if (message == "Z02") {                                                                                                             // send system status
-      Serial.print("A"); Serial.print("0"); Serial.print("2");
+      Serial.print("Z"); Serial.print("0"); Serial.print("2");
       Serial.flush();
       system_mode = 1;
       goto command_end;
